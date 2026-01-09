@@ -9,7 +9,7 @@ from utils import generate_settings, chain_to_triangles
 def main():
     settings = generate_settings()
     # visualize(cube, midpoints, chains)
-    visualize_all_grid(settings)
+    # visualize_all_grid(settings)
     # all_chains_with_config = [(item[0], item[4]) for item in settings]
     # write_to_config(all_chains_with_config)
 
@@ -31,7 +31,8 @@ def main():
                     # print(point)
                     midpoint_indices_list.append(midpoint_indices[point])
             midpoint_indices_list.append(-1)
-            print(config, midpoint_indices_list)
+            # print(config, midpoint_indices_list)
+        visualize_single(config, cube, midpoints, chains)
 
 
 if __name__ == "__main__":

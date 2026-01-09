@@ -1,10 +1,3 @@
-# Custom Marching Cubes Generator
-
-This is a custom asymmetric marching cubes generator that can be used for volumetric data imaging.
-
-![image](output/all_cube_configurations.png "All configurations")
-
-
 Configuration 0       | Complement 255
 :********************:|:********************:
 ![Configuration: 0](output/configuration0) | ![Configuration: 255](output/configuration255)

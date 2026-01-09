@@ -19,6 +19,7 @@ def color_map(i):
 
 
 def visualize_single(config, cube, midpoints, chains):
+    print(f"Visualizing config: {config}")
     fig = plt.figure()
     ax = fig.add_subplot(111, projection="3d")
 
@@ -52,7 +53,7 @@ def visualize_single(config, cube, midpoints, chains):
                     pts[0].x,
                     pts[0].y,
                     pts[0].z,
-                    f"HELLO {edge_index}",
+                    f"{edge_index}",
                     fontsize=8,
                     color="red",
                 )
