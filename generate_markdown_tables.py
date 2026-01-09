@@ -6,7 +6,7 @@ def generate_line(config):
     title = f"Configuration {config}       | Complement {255 - config}"
     line = f"|![Configuration: {config}](output/configuration{
         config
-    }) | ![Configuration: {255 - config}](output/configuration{255 - config}|)"
+    }.png) | ![Configuration: {255 - config}](output/configuration{255 - config}.png|)"
     return title, line
 
 
