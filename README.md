@@ -1,7 +1,9 @@
-# Custom Marching Cubes Generator
+# Custom Marching Cubes Configuration Generator
 
 This is a custom asymmetric marching cubes generator that can be used for volumetric data imaging.
 The purpose of this project was to find a way to algorithmically generate vertices, edges and ordered triangles to be used as a substitute for generic MC lookup tables.
+
+The produced polygons should be airtight as the idea is to always prefer to fill "solid" edges not to cross any empty/"air" nodes.
 
 In all probability the available marching cubes lookup-tables (Marching Cubes 33) are superior to the one generated here, but out of curiosity this had to be done.
 
