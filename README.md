@@ -13,8 +13,10 @@ In all probability the available marching cubes lookup-tables (Marching Cubes 33
 
 # Configuration Comparison
 
-Since a cube has 8 corners, each corner having an "empty/full" property, we get 8 binary options, 0000 0000 to 1111 1111.
-Here are all 256 combinations, 0 to 255:
+Since a cube has 8 corners, each corner having an "empty/full" property, we get 8 binary options:
+`0000 0000`` to `1111 1111`.
+
+Here are all 256 combinations, paired with their complement, ordered from 0 to 255:
 
 
 Configuration 0       | Complement 255
