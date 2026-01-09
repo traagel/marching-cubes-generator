@@ -1,12 +1,12 @@
-title = "Configuration        | Complement"
-row_break = ":********************:|:********************:"
+title = "|Configuration  | Complement     |"
+row_break = "|-----------|----------|"
 
 
 def generate_line(config):
     title = f"Configuration {config}       | Complement {255 - config}"
-    line = f"![Configuration: {config}](output/configuration{
+    line = f"|![Configuration: {config}](output/configuration{
         config
-    }) | ![Configuration: {255 - config}](output/configuration{255 - config})"
+    }) | ![Configuration: {255 - config}](output/configuration{255 - config}|)"
     return title, line
 
 
