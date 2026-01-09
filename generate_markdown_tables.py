@@ -22,6 +22,3 @@ def generate_tables():
             f.write(row_break + "\n")
             f.write(line + "\n")
             f.write("\n")
-
-
-generate_tables()

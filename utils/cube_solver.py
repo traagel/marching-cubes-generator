@@ -169,9 +169,9 @@ def find_chain(polygon_list_pairs, chains):
     return chain
 
 
-def chain_to_triangles(chain):
+def chain_to_triangles(chain, cube=None):
     vertex_list = chain_to_vertex_list(chain)
-    triangles = triangulate_vertex_list(vertex_list)
+    triangles = triangulate_vertex_list(vertex_list, cube)
     triangles_3 = []
     for triangle in triangles:
         triangle_3 = []
@@ -196,8 +196,58 @@ def chain_to_vertex_list(chain):
     return ordered
 
 
-def triangulate_vertex_list(vertex_list):
+def triangulate_vertex_list(vertex_list, cube=None):
     triangles = []
     for i in range(1, len(vertex_list) - 1):
-        triangles.append((vertex_list[0], vertex_list[i], vertex_list[i + 1]))
+        p0, p1, p2 = vertex_list[0], vertex_list[i], vertex_list[i + 1]
+        
+        # If cube is provided, check winding order
+        if cube is not None:
+            # Calculate triangle centroid
+            centroid_x = (p0.x + p1.x + p2.x) / 3
+            centroid_y = (p0.y + p1.y + p2.y) / 3
+            centroid_z = (p0.z + p1.z + p2.z) / 3
+            
+            # Find closest active vertex
+            closest_active = None
+            min_dist = float('inf')
+            for vertex in cube.vertices:
+                if vertex.value == 1:  # Active vertex
+                    dist = ((vertex.x - centroid_x)**2 + 
+                           (vertex.y - centroid_y)**2 + 
+                           (vertex.z - centroid_z)**2)**0.5
+                    if dist < min_dist:
+                        min_dist = dist
+                        closest_active = vertex
+            
+            if closest_active:
+                # Calculate current normal (p1-p0) × (p2-p0)
+                v1 = CubePoint(p1.x - p0.x, p1.y - p0.y, p1.z - p0.z)
+                v2 = CubePoint(p2.x - p0.x, p2.y - p0.y, p2.z - p0.z)
+                normal = CubePoint(
+                    v1.y * v2.z - v1.z * v2.y,
+                    v1.z * v2.x - v1.x * v2.z,
+                    v1.x * v2.y - v1.y * v2.x
+                )
+                
+                # Vector from centroid to closest active vertex
+                to_active = CubePoint(
+                    closest_active.x - centroid_x,
+                    closest_active.y - centroid_y,
+                    closest_active.z - centroid_z
+                )
+                
+                # Dot product: if positive, normal points toward active vertex
+                dot_product = normal.x * to_active.x + normal.y * to_active.y + normal.z * to_active.z
+                
+                # If pointing toward active vertex, flip triangle order
+                if dot_product > 0:
+                    triangles.append((p0, p2, p1))  # Flipped
+                else:
+                    triangles.append((p0, p1, p2))  # Normal order
+            else:
+                triangles.append((p0, p1, p2))  # No active vertices, use normal order
+        else:
+            triangles.append((p0, p1, p2))  # No cube provided, use normal order
+    
     return triangles
